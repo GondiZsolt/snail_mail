@@ -37,25 +37,33 @@ error_message_invalid_username = "The username cannot start with a '.' character
 ok_message = "Valid email address :)"
 is_valid = True
 
-if number_of_at_characters == 0:
+if position_of_at == 0:
+    is_valid = False
+    print(error_message_no_username)
+
+elif position_of_first_dot == 0:
+    is_valid = False
+    print(error_message_invalid_username)
+
+elif number_of_at_characters == 0:
     is_valid = False
     print(error_message_no_at)
+
+elif position_of_first_dot == -1:
+    is_valid = False
+    print(error_message_no_dot)
 
 elif number_of_at_characters > 1:
     is_valid = False
     print(error_message_too_many_at)
 
-elif position_of_at == 0:
+elif position_of_first_dot_after_the_at == position_of_at + 1:
     is_valid = False
-    print(error_message_no_username)
+    print(error_message_no_server_name)
 
 elif email[-1] == "@":
     is_valid = False
     print(error_message_no_domain)
-
-elif position_of_first_dot == -1:
-    is_valid = False
-    print(error_message_no_dot)
 
 elif position_of_first_dot_after_the_at == -1:
     is_valid = False
@@ -65,7 +73,9 @@ elif position_of_last_dot == email[-1]:
     is_valid = False
     print(error_message_no_tld)
 
-elif email[-2] == position_of_last_dot:
+elif email[-2] == ".":
     is_valid = False
     print(error_message_short_tld)
-print(email)
+
+else:
+    print(ok_message)
